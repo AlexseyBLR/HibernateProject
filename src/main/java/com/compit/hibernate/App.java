@@ -5,7 +5,6 @@ import com.compit.hibernate.entity.Countries;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import java.util.List;
@@ -14,29 +13,28 @@ import java.util.List;
 public class App {
 
     private final static Logger logger = Logger.getLogger(App.class);
-    private static SessionFactory sessionFactory;
 
     public static void main(String[] args) {
-        sessionFactory = new Configuration().configure().buildSessionFactory();
-        App app = new App();
 
-        System.out.println("countries: ");
-        app.listDevelopers();
-        sessionFactory.close();
+
+//
+        try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory()) {
+//
+
+            listDevelopers(sessionFactory);
+        }
 
     }
 
 
-
-    public void listDevelopers() {
+    public static void listDevelopers(SessionFactory sessionFactory) {
         Session session = sessionFactory.openSession();
-        Transaction transaction = null;
 
-        transaction = session.beginTransaction();
-        List developers = session.createQuery("FROM COUNTRIES").list();
-        for (Object developer : developers) {
+        session.beginTransaction();
+        List<Countries> countries = session.createQuery("FROM Countries").list();
+        System.out.println("countries: ");
+        for (Object developer : countries) {
             System.out.println(developer);
-            System.out.println("\n================\n");
         }
         session.close();
     }
