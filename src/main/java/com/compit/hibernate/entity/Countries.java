@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Table(name = "COUNTRIES")
 public class Countries {
 
+
     @Id
     @Column (name = "COUNTRY_ID")
     private String countryID;
