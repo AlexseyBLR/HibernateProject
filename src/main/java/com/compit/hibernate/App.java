@@ -20,36 +20,29 @@ public class App {
 
     public static void main(String[] args) {
         sessionFactory = new Configuration().configure().buildSessionFactory();
-        App app = new App();
-        System.out.println("Add: ");
-        app.addCountry( "INSERT INTO Countries(countryID, countryName, regionID)"  +
-                "SELECT countryID, countryName, regionID from Countries");
-        app.listCountries();
-        app.addCountry( "INSERT INTO Countries(countryID, countryName, regionID)"  +
-                "SELECT countryID, countryName, regionID from Countries");
-        System.out.println("Select: ");
-        app.listCountries();
-        sessionFactory.close();
+        System.out.println(sessionFactory);
+
+//        sessionFactory.close();
     }
 
 
-    public void listCountries() {
-        Session session = sessionFactory.openSession();
-
-        session.beginTransaction();
-        List<Countries> countries = session.createQuery("FROM Countries").list();
-        System.out.println("COUNTRIES: ");
-        for (Object developer : countries) {
-            System.out.println(developer);
-        }
-        session.close();
-    }
-
-    public void addCountry(String hql) {
-        Session session = sessionFactory.openSession();
-
-        session.createQuery(hql);
-
-        session.close();
-    }
+//    public void listCountries() {
+//        Session session = sessionFactory.openSession();
+//
+//        session.beginTransaction();
+//        List<Countries> countries = session.createQuery("FROM Countries").list();
+//        System.out.println("COUNTRIES: ");
+//        for (Object developer : countries) {
+//            System.out.println(developer);
+//        }
+//        session.close();
+//    }
+//
+//    public void addCountry(String hql) {
+//        Session session = sessionFactory.openSession();
+//
+//        session.createQuery(hql);
+//
+//        session.close();
+//    }
 }
